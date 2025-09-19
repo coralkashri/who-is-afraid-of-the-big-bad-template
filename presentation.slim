@@ -4,7 +4,9 @@ html lang="en"
         meta charset="utf-8"
         meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
         title Who is afraid of the big bad template?
-        link charset="utf-8" rel="stylesheet" href="/Users/coral/VSCodeProjects\presentation_who_is_afraid_of_the_big_bad_template/style.css"
+        link charset="utf-8" rel="stylesheet" href="dist/css/reveal-js-style.css"
+        link charset="utf-8" rel="stylesheet" href="dist/css/custom-style.min.css"
+        link charset="utf-8" rel="stylesheet" href="dist/css/page-flip.min.css"
 
     body
         .reveal
@@ -25,22 +27,69 @@ html lang="en"
                         * C++ Senioreas blog writer
                         * ISO C++ committee member
 
-                section 
-                    section 
-                        h5 test 1
-                    section 
-                        h5 test 2
+                section
+                        h2 Story Time!
+
+                section
+                    div style="width: 90vw; height: 90vh; padding: 0 0 0 5vw;"
+                        div id="flipbook-container"
+                            .page-slide.page-cover.page-cover-top data-density="hard"
+                                .page-content
+                                    h2 The Big Bad Template
+                            
+                            .page-slide
+                                .page-content
+                                    h2.page-header Disclaimer 😇
+                                    .page-text
+                                        h5 id="disclaimer"
+                                    h6 style="display: none" id="disclaimer-hidden"
+                                        |
+                                            Everything you see or hear in this talk is purely fictional and not connected to any real
+                                            company I’ve ever come across.
+                                            Also, the examples are for demonstration only ✨ (and yes… there may be much better design approaches 🙃).
+                            
+                            .page-slide
+                                .page-content
+                            
+                            .page-slide
+                                .page-content
+                                    h2.page-header Once upon a ⌚...
+                                    .page-text
+                                        h6
+                                            |
+                                                There was a little 🏢, and this 🏢 had an intelligent CTO who just hated templates <😈>.<br><br>
+
+                                                There was always the assumption that 😈 are difficult to maintain and that it's much harder
+                                                to 🕵🏼‍♀️ someone who 💡 how to 💻 with them.<br><br>
+
+                                                At the <- it all seemed so easy, as the idea was simply 💡💡💡 -
+                                                to create a list of 🍓 to collect in the 🌲 before going out and forgetting what they needed.<br><br>
+
+                                                So their technology looked like that:<br><br>
+                            
+                            .page-slide
+                                .page-content
+                                    .page-text
+                                        pre
+                                            code.hljs.cpp data-trim="" data-line-numbers=""
+                                                script type="text/template"
+                                                    |
+                                                        class grocery {
+                                                            std::string name;
+                                                        };
+
+                                                        class basket {
+                                                            grocery groceries[5];
+                                                        };
+
+                            .page-slide.page-cover.page-cover-bottom data-density="hard"
+                                .page-content
+                                    h2 The End
 
                 section
                     h2 Hello, Haml!
                     p This is a simple Haml template.
 
-        script charset="utf-8" src="/Users/coral/VSCodeProjects\presentation_who_is_afraid_of_the_big_bad_template/revealjs.js"
-        script
-            |
-                Reveal.initialize({
-                    hash: true,
-                    transition: 'slide',
-                    navigationMode: 'grid',
-                    plugins: [ RevealMarkdown, RevealSearch, RevealHighlight, RevealNotes ]
-                });
+        script charset="utf-8" src="dist/scripts/revealjs.js"
+        script charset="utf-8" src="dist/scripts/page-flip.browser.js"
+        script charset="utf-8" src="dist/scripts/custom.js"

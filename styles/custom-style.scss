@@ -1,0 +1,18 @@
+h6 {
+  font-size: 0.8em; /* Adjust font size */
+  color: #666; /* Set text color to a darker grey */
+  font-weight: normal; /* Override default bold if desired */
+  margin-top: 1em; /* Add space above the heading */
+  margin-bottom: 1em; /* Add space below the heading */
+  text-align: left; /* Align text to the left */
+}
+
+h5 {
+  text-align: left;
+}
+
+.full-page-center {
+  display: flex !important;
+  justify-content: center;   /* horizontal */
+  align-items: center;       /* vertical */
+}
