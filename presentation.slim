@@ -30,7 +30,7 @@ html lang="en"
                 section
                         h2 Story Time!
 
-                section
+                section id="book-slide"
                     div style="width: 90vw; height: 90vh; padding: 0 0 0 5vw;"
                         div id="flipbook-container"
                             .page-slide.page-cover.page-cover-top data-density="hard"
@@ -70,17 +70,29 @@ html lang="en"
                             .page-slide
                                 .page-content
                                     .page-text
-                                        pre
-                                            code.hljs.cpp data-trim="" data-line-numbers=""
-                                                script type="text/template"
-                                                    |
-                                                        class grocery {
-                                                            std::string name;
-                                                        };
+                                        .r-stack
+                                            pre.fragment.current-visible data-id="code-animation-1" data-fragment-index="0"
+                                                code.hljs.cpp data-trim="" data-line-numbers=""
+                                                    script type="text/template"
+                                                        |
+                                                            class grocery {
+                                                                std::string name;
+                                                            };
 
-                                                        class basket {
-                                                            grocery groceries[5];
-                                                        };
+                                                            class basket {
+                                                                grocery groceries[5];
+                                                            };
+                                            pre.fragment data-id="code-animation-1" data-fragment-index="1"
+                                                code.hljs.cpp data-trim="" data-line-numbers="6"
+                                                    script type="text/template"
+                                                        |
+                                                            class grocery {
+                                                                std::string name;
+                                                            };
+
+                                                            class basket {
+                                                                grocery groceries[5];
+                                                            };
 
                             .page-slide.page-cover.page-cover-bottom data-density="hard"
                                 .page-content
