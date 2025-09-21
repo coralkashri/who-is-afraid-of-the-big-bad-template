@@ -44,9 +44,9 @@ html lang="en"
                                         h5 id="disclaimer"
                                     h6 style="display: none" id="disclaimer-hidden"
                                         |
-                                            Everything you see or hear in this talk is purely fictional and not connected to any real
-                                            company I’ve ever come across.
+                                            Everything you see or hear in this talk is purely fictional and not connected to any real company I’ve ever come across.
                                             Also, the examples are for demonstration only ✨ (and yes… there may be much better design approaches 🙃).
+                                    / .page-footer 1
                             
                             .page-slide
                                 .page-content
@@ -55,23 +55,23 @@ html lang="en"
                                 .page-content
                                     h2.page-header Once upon a ⌚...
                                     .page-text
-                                        h6
+                                        h5
                                             |
                                                 There was a little 🏢, and this 🏢 had an intelligent CTO who just hated templates <😈>.<br><br>
 
-                                                There was always the assumption that 😈 are difficult to maintain and that it's much harder
+                                                There was always the assumption that 😈s are difficult to maintain and that it's much harder
                                                 to 🕵🏼‍♀️ someone who 💡 how to 💻 with them.<br><br>
 
                                                 At the <- it all seemed so easy, as the idea was simply 💡💡💡 -
-                                                to create a list of 🍓 to collect in the 🌲 before going out and forgetting what they needed.<br><br>
-
-                                                So their technology looked like that:<br><br>
+                                                to create a list of 🍓 to collect in the 🌲🌲 before going out and forgetting what was needed.<br><br>
+                                    / .page-footer 3
                             
                             .page-slide
                                 .page-content
                                     .page-text
+                                        h5 So their technology looked like that:<br><br>
                                         .r-stack
-                                            pre.fragment.current-visible data-id="code-animation-1" data-fragment-index="0"
+                                            pre.larger-font
                                                 code.hljs.cpp data-trim="" data-line-numbers=""
                                                     script type="text/template"
                                                         |
@@ -82,25 +82,103 @@ html lang="en"
                                                             class basket {
                                                                 grocery groceries[5];
                                                             };
-                                            pre.fragment data-id="code-animation-1" data-fragment-index="1"
-                                                code.hljs.cpp data-trim="" data-line-numbers="6"
-                                                    script type="text/template"
-                                                        |
-                                                            class grocery {
-                                                                std::string name;
-                                                            };
+                                        h5
+                                            |
+                                                <br><br>After completing the product, there was no need for a team to 🛠️ it, and the team was able to std::move std::forward to other technology challenges.
+                                    / .page-footer 4
+                                    / TODO: Add a picture of a small basket with groceries
 
-                                                            class basket {
-                                                                grocery groceries[5];
-                                                            };
+                            .page-slide
+                                .page-content
+                                    h2.page-header Modern 🧺
+                                    .page-text
+                                        h4
+                                            |
+                                                ⌚ 🚶🏽‍♀️ by and an invention of a new modern 🧺 aimed to destroy the company 🥇s.<br>
+                                                A modern 🧺 which can contain up to <b>10</b> 🍇 at the same time!<br><br>
+
+                            .page-slide
+                                .page-content
+                                    .page-text
+                                        h4 
+                                            |
+                                                But the company CTO was not about to 🏳️, she moved back her team to this product and together created a newer
+                                                list named <b>modern_basket</b>:<br><br>
+                                        pre.larger-font 
+                                            code.hljs.cpp data-trim="" data-line-numbers=""
+                                                script type="text/template"
+                                                    |
+                                                        class modern_basket {
+                                                            grocery groceries[10];
+                                                        };
+                                        / TODO: Add a picture of a large basket with groceries
+
+                                    / .page-footer 5
+
+                            .page-slide 
+                                .page-content 
+                                    h2.page-header Extremely Truly Absolutely Modern 🧺
+                                    .page-text 
+                                        h5 
+                                            |
+                                                The new 💡 👆🏽 the company's stock price 📈, and everything
+                                                seemed so peaceful for the company, until a newer 💡 got the attention of the 🌎.<br><br>
+                                                A 🛒!<br><br>
+                                                This 🛒 was able to contian up to <b>50</b> (🤯) 🍄‍🟫s at the same time.
+                                    / .page-footer 6
+
+                            .page-slide 
+                                .page-content 
+                                    .page-text 
+                                        h5 
+                                            |
+                                                The CTO was 😫.<br><br>
+                                                She and the team 🔎 it frustrating to create each time a new moderner modern container.<br>
+                                                She knew they needed something 🧠, more dynamic and flexible.<br>
+                                                And in times of despair, she decided to do the inevitable upgrade to their architecture:
+
+                                        pre.fragment.current-visible data-id="code-animation-1" data-fragment-index="0"
+                                        pre.larger-font.fragment data-id="code-animation-1" data-fragment-index="1"
+                                            code.hljs.cpp data-trim="" data-line-numbers=""
+                                                script type="text/template"
+                                                    |
+                                                        template <size_t Capacity>
+                                                        class groceries_container {
+                                                            grocery groceries[Capacity];
+                                                        };
+                                    / .page-footer 7
+
+                            .page-slide 
+                                .page-content 
+                                    .page-text 
+                                        h5 id="book-ending"
+                                    h6 style="display: none" id="book-ending-hidden"
+                                        |
+                                            And from that moment on, things were never as before.
+
+                                            The company started to use more <😇> code.
+                                            They learned constexpr, consteval, fold-expressions, reflection (well, soon...).
+                                            They built compile time tools and features.
+
+                                            Their company grew.
+                                            And the CTO was finally happy —
+                                            because she never had to write the std::next extremely_truly_moderner_basket.
+                                    / .page-footer 9
+
+                            .page-slide 
+                                .page-content 
 
                             .page-slide.page-cover.page-cover-bottom data-density="hard"
                                 .page-content
                                     h2 The End
 
-                section
-                    h2 Hello, Haml!
-                    p This is a simple Haml template.
+                section data-markdown=""
+                    |
+                        ## Templates? Metaprogramming?
+                        ### Templates are part of Metaprogramming <!-- .element: class="fragment" data-fragment-index="1" -->
+                        ### constexpr, consteval <!-- .element: class="fragment" data-fragment-index="2" -->
+                        
+
 
         script charset="utf-8" src="dist/scripts/revealjs.js"
         script charset="utf-8" src="dist/scripts/page-flip.browser.js"

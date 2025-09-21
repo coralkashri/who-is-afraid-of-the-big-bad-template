@@ -11,9 +11,17 @@ function ApplyTyping(element, textToType) {
     let i = 0;
     const speed = 30; // milliseconds per character
 
+    textToType = textToType.replace(/<br\s*\/?>/gi, "\n");
+    textToType = textToType.replace(/\&lt;/gi, "<");
+    textToType = textToType.replace(/\&gt;/gi, ">");
+
     function typeWriter() {
         if (i < textToType.length) {
-            element.innerHTML += textToType.charAt(i);
+            if (textToType[i] === '\n') {
+                element.appendChild(document.createElement('br'));
+            } else {
+                element.innerHTML += textToType.charAt(i);
+            }
             i++;
             setTimeout(typeWriter, speed);
         }
@@ -60,13 +68,29 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         );
 
-        let isDisclaimerLoaded = false;
-        pageFlip.on('flip', (e) => {
-            if (e.data == 1 && !isDisclaimerLoaded)
-            {
-                ApplyTyping(document.getElementById("disclaimer"), document.getElementById("disclaimer-hidden").innerHTML);
-                isDisclaimerLoaded = true;
+        const typingSections = {
+            "disclaimer": {
+                "element": document.getElementById("disclaimer"),
+                "text": document.getElementById("disclaimer-hidden").innerHTML,
+                "isInitialized": false,
+                "pageIndex": 1
+            },
+            "book-ending": {
+                "element": document.getElementById("book-ending"),
+                "text": document.getElementById("book-ending-hidden").innerHTML,
+                "isInitialized": false,
+                "pageIndex": 9
             }
+        };
+
+        pageFlip.on('flip', (e) => {
+            // loop through all sections
+            Object.values(typingSections).forEach(section => {
+                if (section.pageIndex === e.data && !section.isInitialized) {
+                    ApplyTyping(section.element, section.text);
+                    section.isInitialized = true;
+                }
+            });
         });
 
         /*

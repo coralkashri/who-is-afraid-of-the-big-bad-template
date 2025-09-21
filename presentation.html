@@ -6,26 +6,40 @@
 ## Coral Kashri (She/Her)
 * Senior C++ Developer
 * C++ Senioreas blog writer
-* ISO C++ committee member</section><section><h2>Story Time!</h2></section><section id="book-slide"><div style="width: 90vw; height: 90vh; padding: 0 0 0 5vw;"><div id="flipbook-container"><div class="page-slide page-cover page-cover-top" data-density="hard"><div class="page-content"><h2>The Big Bad Template</h2></div></div><div class="page-slide"><div class="page-content"><h2 class="page-header">Disclaimer 😇</h2><div class="page-text"><h5 id="disclaimer"></h5></div><h6 id="disclaimer-hidden" style="display: none">Everything you see or hear in this talk is purely fictional and not connected to any real
-company I’ve ever come across.
-Also, the examples are for demonstration only ✨ (and yes… there may be much better design approaches 🙃).</h6></div></div><div class="page-slide"><div class="page-content"></div></div><div class="page-slide"><div class="page-content"><h2 class="page-header">Once upon a ⌚...</h2><div class="page-text"><h6>There was a little 🏢, and this 🏢 had an intelligent CTO who just hated templates <😈>.<br><br>
+* ISO C++ committee member</section><section><h2>Story Time!</h2></section><section id="book-slide"><div style="width: 90vw; height: 90vh; padding: 0 0 0 5vw;"><div id="flipbook-container"><div class="page-slide page-cover page-cover-top" data-density="hard"><div class="page-content"><h2>The Big Bad Template</h2></div></div><div class="page-slide"><div class="page-content"><h2 class="page-header">Disclaimer 😇</h2><div class="page-text"><h5 id="disclaimer"></h5></div><h6 id="disclaimer-hidden" style="display: none">Everything you see or hear in this talk is purely fictional and not connected to any real company I’ve ever come across.
+Also, the examples are for demonstration only ✨ (and yes… there may be much better design approaches 🙃).</h6></div></div><div class="page-slide"><div class="page-content"></div></div><div class="page-slide"><div class="page-content"><h2 class="page-header">Once upon a ⌚...</h2><div class="page-text"><h5>There was a little 🏢, and this 🏢 had an intelligent CTO who just hated templates <😈>.<br><br>
 
-There was always the assumption that 😈 are difficult to maintain and that it's much harder
+There was always the assumption that 😈s are difficult to maintain and that it's much harder
 to 🕵🏼‍♀️ someone who 💡 how to 💻 with them.<br><br>
 
 At the <- it all seemed so easy, as the idea was simply 💡💡💡 -
-to create a list of 🍓 to collect in the 🌲 before going out and forgetting what they needed.<br><br>
-
-So their technology looked like that:<br><br></h6></div></div></div><div class="page-slide"><div class="page-content"><div class="page-text"><div class="r-stack"><pre class="fragment current-visible" data-fragment-index="0" data-id="code-animation-1"><code class="hljs cpp" data-line-numbers="" data-trim=""><script type="text/template">class grocery {
+to create a list of 🍓 to collect in the 🌲🌲 before going out and forgetting what was needed.<br><br></h5></div></div></div><div class="page-slide"><div class="page-content"><div class="page-text"><h5>So their technology looked like that:<br><br></h5><div class="r-stack"><pre class="larger-font"><code class="hljs cpp" data-line-numbers="" data-trim=""><script type="text/template">class grocery {
     std::string name;
 };
 
 class basket {
     grocery groceries[5];
-};</script></code></pre><pre class="fragment" data-fragment-index="1" data-id="code-animation-1"><code class="hljs cpp" data-line-numbers="6" data-trim=""><script type="text/template">class grocery {
-    std::string name;
-};
+};</script></code></pre></div><h5><br><br>After completing the product, there was no need for a team to 🛠️ it, and the team was able to std::move std::forward to other technology challenges.</h5></div></div></div><div class="page-slide"><div class="page-content"><h2 class="page-header">Modern 🧺</h2><div class="page-text"><h4>⌚ 🚶🏽‍♀️ by and an invention of a new modern 🧺 aimed to destroy the company 🥇s.<br>
+A modern 🧺 which can contain up to <b>10</b> 🍇 at the same time!<br><br></h4></div></div></div><div class="page-slide"><div class="page-content"><div class="page-text"><h4>But the company CTO was not about to 🏳️, she moved back her team to this product and together created a newer
+list named <b>modern_basket</b>:<br><br></h4><pre class="larger-font"><code class="hljs cpp" data-line-numbers="" data-trim=""><script type="text/template">class modern_basket {
+    grocery groceries[10];
+};</script></code></pre></div></div></div><div class="page-slide"><div class="page-content"><h2 class="page-header">Extremely Truly Absolutely Modern 🧺</h2><div class="page-text"><h5>The new 💡 👆🏽 the company's stock price 📈, and everything
+seemed so peaceful for the company, until a newer 💡 got the attention of the 🌎.<br><br>
+A 🛒!<br><br>
+This 🛒 was able to contian up to <b>50</b> (🤯) 🍄‍🟫s at the same time.</h5></div></div></div><div class="page-slide"><div class="page-content"><div class="page-text"><h5>The CTO was 😫.<br><br>
+She and the team 🔎 it frustrating to create each time a new moderner modern container.<br>
+She knew they needed something 🧠, more dynamic and flexible.<br>
+And in times of despair, she decided to do the inevitable upgrade to their architecture:</h5><pre class="fragment current-visible" data-fragment-index="0" data-id="code-animation-1"></pre><pre class="larger-font fragment" data-fragment-index="1" data-id="code-animation-1"><code class="hljs cpp" data-line-numbers="" data-trim=""><script type="text/template">template <size_t Capacity>
+class groceries_container {
+    grocery groceries[Capacity];
+};</script></code></pre></div></div></div><div class="page-slide"><div class="page-content"><div class="page-text"><h5 id="book-ending"></h5></div><h6 id="book-ending-hidden" style="display: none">And from that moment on, things were never as before.
 
-class basket {
-    grocery groceries[5];
-};</script></code></pre></div></div></div></div><div class="page-slide page-cover page-cover-bottom" data-density="hard"><div class="page-content"><h2>The End</h2></div></div></div></div></section><section><h2>Hello, Haml!</h2><p>This is a simple Haml template.</p></section></div></div><script charset="utf-8" src="dist/scripts/revealjs.js"></script><script charset="utf-8" src="dist/scripts/page-flip.browser.js"></script><script charset="utf-8" src="dist/scripts/custom.js"></script></body></html>
+The company started to use more <😇> code.
+They learned constexpr, consteval, fold-expressions, reflection (well, soon...).
+They built compile time tools and features.
+
+Their company grew.
+And the CTO was finally happy —
+because she never had to write the std::next extremely_truly_moderner_basket.</h6></div></div><div class="page-slide"><div class="page-content"></div></div><div class="page-slide page-cover page-cover-bottom" data-density="hard"><div class="page-content"><h2>The End</h2></div></div></div></div></section><section data-markdown="">## Templates? Metaprogramming?
+### Templates are part of Metaprogramming <!-- .element: class="fragment" data-fragment-index="1" -->
+### constexpr, consteval <!-- .element: class="fragment" data-fragment-index="2" --></section></div></div><script charset="utf-8" src="dist/scripts/revealjs.js"></script><script charset="utf-8" src="dist/scripts/page-flip.browser.js"></script><script charset="utf-8" src="dist/scripts/custom.js"></script></body></html>
