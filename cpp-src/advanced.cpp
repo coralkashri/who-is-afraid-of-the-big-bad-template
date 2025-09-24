@@ -54,15 +54,13 @@ struct 🛒 {
 
     template <typename BagT>
     static constexpr double BagPrice(const BagT& bag) {
-        auto bagView = typename BagT::SpanT(bag.m_items);
-        return bagView.size() * bagView[0].💰;
+        return bag.size() * bag[0].💰;
     }
 
     void print() const {
         ([&]() {
             const auto& bag = std::get<Bags>(m_bags);
-            auto bagView = typename Bags::SpanT(bag.m_items);
-            std::cout << bagView[0].GetName() << "s: " << bagView.size() << " 💰: " << bagView[0].💰 << "\n";
+            std::cout << bag[0].GetName() << "s: " << bag.size() << " 💰: " << bag[0].💰 << "\n";
         }(), ...);
         
         std::cout << "Total: " << 💰() << "\n";
@@ -72,25 +70,15 @@ private:
     std::tuple<Bags...> m_bags;
 };
 
-using 🍎 = GroceryItem<FixedString{"🍎"}, 2.99>;
-using 🍌 = GroceryItem<FixedString{"🍌"}, 5.34>;
+using 🍎 = GroceryItem<"🍎", 2.99>;
+using 🍌 = GroceryItem<"🍌", 5.34>;
 
 template <typename GroceryT, int Amount>
-struct 🛍{
-    using SpanT = std::span<const GroceryT, Amount>;
-
-    constexpr operator SpanT() const
-    {
-        return SpanT(m_items);
-    }
-
+struct 🛍 : public std::array<GroceryT, Amount> {
     template <typename OGroceryT, int OAmount>
-    constexpr auto operator+(🛍<OGroceryT, OAmount> otherBag) const
-    {
+    constexpr auto operator+(🛍<OGroceryT, OAmount> otherBag) const {
         return 🛒(*this, otherBag);
     }
-
-    std::array<GroceryT, Amount> m_items{};
 };
 
 template <char... Digits>
@@ -111,9 +99,9 @@ constexpr auto operator""🛍🍌() {
 
 int main()
 {
-    static constexpr auto 🍎s = 7🛍🍎;
-    static constexpr auto 🍌s = 10🛍🍌;
-    static constexpr auto 🍌s2 = 5🛍🍌;
+    constexpr auto 🍎s = 7🛍🍎;
+    constexpr auto 🍌s = 10🛍🍌;
+    constexpr auto 🍌s2 = 5🛍🍌;
 
     constexpr auto 🛒🐕 = 🍎s + 🍌s + 🍌s2;
 

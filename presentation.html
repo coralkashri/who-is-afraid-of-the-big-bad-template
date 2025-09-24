@@ -172,13 +172,29 @@ auto operator""🛍🍌(unsigned long long n) {
 }</script></code></pre><pre class="larger-font fragment"><code class="hljs" data-line-numbers="" data-trim=""><script type="text/template">apples Count: 7 Price: 2.99
 bananas Count: 20 Price: 5.34
 Total: 127.73</script></code></pre></section><section><h2>But WAIT!</h2><h3 class="fragment">Let's level it up a little</h3><h2 class="fragment">Completely Compile-Time Program!</h2></section><section><h2>What is our target?</h2><pre class="larger-font fragment"><code class="hljs cpp" data-line-numbers="" data-trim=""><script type="text/template">int main() {
-    static constexpr auto 🍎s = 7🛍🍎;
-    static constexpr auto 🍌s = 10🛍🍌;
-    static constexpr auto 🍌s2 = 5🛍🍌;
+    constexpr auto 🍎s = 7🛍🍎;
+    constexpr auto 🍌s = 10🛍🍌;
+    constexpr auto 🍌s2 = 5🛍🍌;
 
     constexpr auto 🛒🐕 = 🍎s + 🍌s + 🍌s2;
 
     static_assert(🛒🐕.Cost() == 7 * Apple::price + 15 * Banana::price);
 
     🛒🐕.print();
-}</script></code></pre></section></div></div><script charset="utf-8" src="dist/scripts/revealjs.js"></script><script charset="utf-8" src="dist/scripts/page-flip.browser.js"></script><script charset="utf-8" src="dist/scripts/custom.js"></script></body></html>
+}</script></code></pre></section><section><h2>Making Compile-Time Bag</h2><pre class="larger-font fragment"><code class="hljs cpp" data-line-numbers="" data-trim=""><script type="text/template">template <typename GroceryT, int Amount>
+struct Bag{
+    using SpanT = std::span<const GroceryT, Amount>;
+
+    constexpr operator SpanT() const
+    {
+        return SpanT(m_items);
+    }
+
+    template <typename OGroceryT, int OAmount>
+    constexpr auto operator+(Bag<OGroceryT, OAmount> otherBag) const
+    {
+        return Cart(*this, otherBag);
+    }
+
+    std::array<GroceryT, Amount> m_items{};
+};</script></code></pre></section></div></div><script charset="utf-8" src="dist/scripts/revealjs.js"></script><script charset="utf-8" src="dist/scripts/page-flip.browser.js"></script><script charset="utf-8" src="dist/scripts/custom.js"></script></body></html>
