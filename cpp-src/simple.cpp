@@ -49,9 +49,6 @@ struct GroceryItem : IGrocery {
 };
 
 struct Cart {
-    Cart(const Cart&) = default;
-    Cart& operator=(const Cart&) = default;
-
     template <typename... Items>
     Cart(std::vector<Items>&... items) {
         auto list = {(items | std::views::transform([](auto& i) { return &i; }) | std::ranges::to<std::vector<IGrocery*>>())...};
@@ -68,12 +65,6 @@ struct Cart {
         {
             m_items.insert(m_items.end(), l.begin(), l.end());
         }
-        return *this;
-    }
-
-    template <typename... Items>
-    Cart& operator+=(const Cart& otherCart) {
-        m_items.insert(m_items.end(), otherCart.m_items.begin(), otherCart.m_items.end());
         return *this;
     }
 
@@ -146,7 +137,8 @@ int main()
     auto 🍎s = 7🍎;
     auto 🍌s = 10🍌;
 
-    auto 🛒 = 🍎s + 🍌s + 🍌s;
+    auto 🛒 = 🍎s + 🍌s;
+    🛒 += 🍌s;
 
     🛒.PrintCart();
 }

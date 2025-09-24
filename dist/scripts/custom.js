@@ -41,7 +41,10 @@ document.addEventListener('DOMContentLoaded', function() {
         hash: true,
         transition: 'slide',
         navigationMode: 'grid',
-        plugins: [ RevealMarkdown, RevealSearch, RevealHighlight, RevealNotes ]
+        plugins: [ RevealMarkdown, RevealSearch, RevealHighlight, RevealNotes ],
+        autoAnimateEasing: 'ease-out',
+        autoAnimateDuration: 0.8,
+        autoAnimateUnmatched: false,
     }).then(() => {
 
         /*

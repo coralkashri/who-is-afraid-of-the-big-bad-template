@@ -115,11 +115,11 @@ int main()
     static constexpr auto 🍌s = 10🛍🍌;
     static constexpr auto 🍌s2 = 5🛍🍌;
 
-    constexpr auto 🛒🕶️ = 🍎s + 🍌s + 🍌s2;
+    constexpr auto 🛒🐕 = 🍎s + 🍌s + 🍌s2;
 
-    static_assert(🛒🕶️.💰() == 7 * 🍎::💰 + 15 * 🍌::💰);
+    static_assert(🛒🐕.💰() == 7 * 🍎::💰 + 15 * 🍌::💰);
 
-    🛒🕶️.print();
+    🛒🐕.print();
 }
 
 #pragma GCC diagnostic pop

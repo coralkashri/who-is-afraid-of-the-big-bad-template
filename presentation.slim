@@ -172,12 +172,289 @@ html lang="en"
                                 .page-content
                                     h2 The End
 
-                section data-markdown=""
-                    |
-                        ## Templates? Metaprogramming?
-                        ### Templates are part of Metaprogramming <!-- .element: class="fragment" data-fragment-index="1" -->
-                        ### constexpr, consteval <!-- .element: class="fragment" data-fragment-index="2" -->
-                        
+                section
+                    h2 Templates? Metaprogramming?
+                    ul
+                        li.fragment Templates are part of Metaprogramming
+                        li.fragment constexpr, consteval
+                        li.fragment Advanced templates: Variaic template, fold-expressions, concepts...
+                        li.fragment C++ Metaprogramming is a Turing-Complete language
+
+                section
+                    h2 NTTP vs. TTP
+                    pre.fragment
+                        code.hljs.cpp data-trim="" data-line-numbers=""
+                            script type="text/template"
+                                |
+                                    template <typename T>
+                                    constexpr auto sum(T n1, T n2) { return n1 + n2; }
+
+                    pre.fragment
+                        code.hljs.cpp data-trim="" data-line-numbers=""
+                            script type="text/template"
+                                |
+                                    template <typename T, T N1, T N2>
+                                    consteval auto sum() { return N1 + N2; }
+
+                section
+                    h2 NTTP Main Restrictions
+                    ul
+                        li.fragment All structure's members (and their members) should be known at compile-time
+                        li.fragment All structure's members (and their members) should be public
+                        li.fragment Does std::string_view can be used as NTTP?
+
+                section data-auto-animate=""
+                    h2 std::string_view Implementation
+                    pre data-id="code-animation"
+                        code.hljs.cpp data-trim="" data-line-numbers=""
+                            script type="text/template"
+                                |
+                                    struct string_view {
+                                        char* value;
+                                        size_t size;
+                                    };
+                section data-auto-animate=""
+                    h2 NTTP friendly FixedString
+                    pre data-id="code-animation"
+                        code.hljs.cpp data-trim="" data-line-numbers=""
+                            script type="text/template"
+                                |
+                                    template <size_t N>
+                                    struct FixedString {
+                                        char value[N];
+                                    };
+                section data-auto-animate=""
+                    h2 NTTP friendly FixedString
+                    pre data-id="code-animation"
+                        code.hljs.cpp data-trim="" data-line-numbers=""
+                            script type="text/template"
+                                |
+                                    template <size_t N>
+                                    struct FixedString {
+                                        char value[N];
+
+                                        constexpr FixedString(const char (&str)[N]) {
+                                            for (size_t i = 0; i < N; ++i)
+                                                value[i] = str[i];
+                                        }
+
+                                        constexpr bool operator==(const FixedString& other) const {
+                                            for (size_t i = 0; i < N; ++i)
+                                                if (value[i] != other.value[i]) return false;
+                                            return true;
+                                        }
+                                    };
+                section
+                    h2 Shopping Time!
+                    h3 Grocey Interface 
+                    pre
+                        code.hljs.cpp data-trim="" data-line-numbers=""
+                            script type="text/template"
+                                |
+                                    struct IGrocery {
+                                        virtual constexpr std::string_view GetName() const = 0;
+                                        virtual constexpr double GetPrice() const = 0;
+                                        virtual constexpr bool operator==(const IGrocery& ref) const = 0;
+                                        constexpr bool operator!=(const IGrocery& ref) const = default;
+                                    };
+
+                                    // In our cart we'll use: std::vector<IGrocery*> m_items;
+                
+                section
+                    h2 Grocery Items
+                    pre
+                        code.hljs.cpp data-trim="" data-line-numbers=""
+                            script type="text/template"
+                                |
+                                    template <FixedString Name, double Price>
+                                    struct GroceryItem : IGrocery {
+                                        static constexpr auto name = Name;
+                                        static constexpr double price = Price;
+
+                                        constexpr std::string_view GetName() const override
+                                        {
+                                            return name.value;
+                                        }
+
+                                        constexpr double GetPrice() const override
+                                        {
+                                            return price;
+                                        }
+
+                                        constexpr bool operator==(const IGrocery& ref) const override
+                                        {
+                                            return ref.GetPrice() == GetPrice() && ref.GetName() == GetName();
+                                        }
+                                    };
+
+                                    using Apple = GroceryItem<"apple", 2.99>; // compile-time
+                                    using Banana = GroceryItem<"banana", 5.34>; // compile-time
+
+                section
+                    h2 Creating A Bag 
+                    pre
+                        code.hljs.cpp data-trim="" data-line-numbers="1-3|5-9"
+                            script type="text/template"
+                                |
+                                    template <typename GroceryT>
+                                    struct Bag : public std::vector<GroceryT>{
+                                        Bag(unsigned long long n) : std::vector<GroceryT>(n) {}
+
+                                        template <typename OGroceryT>
+                                        Cart operator+(Bag<OGroceryT>& otherBag)
+                                        {
+                                            return Cart(*this, otherBag); // We'll define it later
+                                        }
+                                    };
+
+                section
+                    h2 Creating a Cart 
+                    pre.larger-font
+                        code.hljs.cpp data-trim="" data-line-numbers="1-8|10-19|21-27|28-36|38-48|50-52"
+                            script type="text/template"
+                                |
+                                    struct Cart {
+                                        template <typename... Items>
+                                        Cart(std::vector<Items>&... items) {
+                                            auto list = {(items | std::views::transform([](auto& i) { return &i; }) | std::ranges::to<std::vector<IGrocery*>>())...};
+                                            for (auto l : list) {
+                                                m_items.insert(m_items.end(), l.begin(), l.end());
+                                            }
+                                        }
+                                        
+                                        template <typename... Items>
+                                        Cart& operator+=(std::vector<Items>&... items) { // Adding items to existing cart
+                                            auto list = {(items |
+                                                          std::views::transform([](auto& i) { return &i; }) |
+                                                          std::ranges::to<std::vector<IGrocery*>>())...};
+                                            for (auto l : list) {
+                                                m_items.insert(m_items.end(), l.begin(), l.end());
+                                            }
+                                            return *this;
+                                        }
+
+                                        template <typename Bag>
+                                        Cart operator+(Bag& bag) {
+                                            Cart temp = *this;
+                                            temp += bag;
+                                            return temp;
+                                        }
+
+                                        void PrintCart() {
+                                            double totalPrice = 0.0;
+                                            IGrocery* lastItem = m_items[0];
+                                            int currentItemCounter = 0;
+
+                                            auto finalizeItem = [](IGrocery* itemType, int amount) {
+                                                std::cout << itemType->GetName() << "s Count: " << amount << " Price: " << itemType->GetPrice() << "\n";
+                                                return amount * itemType->GetPrice();
+                                            };
+
+                                            for (auto* item : m_items) {
+                                                if (*lastItem != *item) {
+                                                    totalPrice += finalizeItem(lastItem, currentItemCounter);
+                                                    lastItem = item;
+                                                    currentItemCounter = 0;
+                                                }
+                                                ++currentItemCounter;
+                                            }
+                                            totalPrice += finalizeItem(lastItem, currentItemCounter);
+                                            std::cout << "Total: " << totalPrice << "\n";
+                                        }
+
+                                    private:
+                                        std::vector<IGrocery*> m_items;
+                                    };
+
+                section
+                    section
+                        h2 Adding UDL
+                        h3 User Defined Literals - 30_sec Remainder
+                        .fragment 
+                            pre.larger-font
+                                code.hljs.cpp data-trim="" data-line-numbers=""
+                                    script type="text/template"
+                                        |
+                                            auto i = 1; // int 
+                                            auto i1 = 1l; // long 
+                                            auto i2 = 1Z; // size_t 
+                            
+                        .fragment 
+                            pre.larger-font
+                                code.hljs.cpp data-trim="" data-line-numbers=""
+                                    script type="text/template"
+                                        |
+                                            auto t = "1"; // char[] 
+                                            auto t1 = "1"s; // std::string
+                                            auto t2 = "1"sv; // std::string_view 
+                    
+                    section
+                        h2 Adding UDL
+                        div
+                            h3 The rule I'll ignore 
+                            h4 Any UDL should start with a single underscore ('_'), otherwise it's reserved for the standard library implementors.
+                            img src="dist/assets/tom_and_jerry_catch_me_is_you_can.png" style="height: 40vh"
+
+                    section
+                        h2 Adding UDL
+                        pre.larger-font
+                            code.hljs.cpp data-trim="" data-line-numbers=""
+                                script type="text/template"
+                                    |
+                                        auto operator""🛍🍎(unsigned long long n) {
+                                            return Bag<Apple>(n);
+                                        }
+
+                                        auto operator""🛍🍌(unsigned long long n) {
+                                            return Bag<Banana>(n);
+                                        }
+
+                section 
+                    h2 Combining it all together 
+                    pre.larger-font.fragment
+                        code.hljs.cpp data-trim="" data-line-numbers=""
+                            script type="text/template"
+                                |
+                                    int main() {
+                                        auto 🍎s = 7🛍🍎;
+                                        auto 🍌s = 10🛍🍌;
+
+                                        auto 🛒🐕 = 🍎s + 🍌s;
+                                        🛒🐕 += 🍌s;
+
+                                        🛒🐕.PrintCart();
+                                    }
+                    pre.larger-font.fragment
+                        code.hljs data-trim="" data-line-numbers=""
+                            script type="text/template"
+                                |
+                                    apples Count: 7 Price: 2.99
+                                    bananas Count: 20 Price: 5.34
+                                    Total: 127.73
+
+                section 
+                    h2 But WAIT!
+                    h3.fragment Let's level it up a little
+                    h2.fragment Completely Compile-Time Program!
+
+                section
+                    h2 What is our target?
+                    pre.larger-font.fragment
+                        code.hljs.cpp data-trim="" data-line-numbers=""
+                            script type="text/template"
+                                |
+                                    int main() {
+                                        static constexpr auto 🍎s = 7🛍🍎;
+                                        static constexpr auto 🍌s = 10🛍🍌;
+                                        static constexpr auto 🍌s2 = 5🛍🍌;
+
+                                        constexpr auto 🛒🐕 = 🍎s + 🍌s + 🍌s2;
+
+                                        static_assert(🛒🐕.Cost() == 7 * Apple::price + 15 * Banana::price);
+
+                                        🛒🐕.print();
+                                    }
+
 
 
         script charset="utf-8" src="dist/scripts/revealjs.js"
