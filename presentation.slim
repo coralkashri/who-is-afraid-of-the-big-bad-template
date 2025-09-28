@@ -234,13 +234,15 @@ html lang="en"
                                         char value[N];
 
                                         constexpr FixedString(const char (&str)[N]) {
-                                            for (size_t i = 0; i < N; ++i)
+                                            for (size_t i = 0; i < N; ++i) {
                                                 value[i] = str[i];
+                                            }
                                         }
 
                                         constexpr bool operator==(const FixedString& other) const {
-                                            for (size_t i = 0; i < N; ++i)
+                                            for (size_t i = 0; i < N; ++i) {
                                                 if (value[i] != other.value[i]) return false;
+                                            }
                                             return true;
                                         }
                                     };
@@ -271,18 +273,15 @@ html lang="en"
                                         static constexpr auto name = Name;
                                         static constexpr double price = Price;
 
-                                        constexpr std::string_view GetName() const override
-                                        {
+                                        constexpr std::string_view GetName() const override {
                                             return name.value;
                                         }
 
-                                        constexpr double GetPrice() const override
-                                        {
+                                        constexpr double GetPrice() const override {
                                             return price;
                                         }
 
-                                        constexpr bool operator==(const IGrocery& ref) const override
-                                        {
+                                        constexpr bool operator==(const IGrocery& ref) const override {
                                             return ref.GetPrice() == GetPrice() && ref.GetName() == GetName();
                                         }
                                     };
@@ -301,8 +300,7 @@ html lang="en"
                                         Bag(unsigned long long n) : std::vector<GroceryT>(n) {}
 
                                         template <typename OGroceryT>
-                                        Cart operator+(Bag<OGroceryT>& otherBag)
-                                        {
+                                        Cart operator+(Bag<OGroceryT>& otherBag) {
                                             return Cart(*this, otherBag); // We'll define it later
                                         }
                                     };
@@ -340,7 +338,7 @@ html lang="en"
                                             return temp;
                                         }
 
-                                        void PrintCart() {
+                                        void Receipt() {
                                             double totalPrice = 0.0;
                                             IGrocery* lastItem = m_items[0];
                                             int currentItemCounter = 0;
@@ -422,7 +420,7 @@ html lang="en"
                                         auto 🛒🐕 = 🍎s + 🍌s;
                                         🛒🐕 += 🍌s;
 
-                                        🛒🐕.PrintCart();
+                                        🛒🐕.Receipt();
                                     }
                     pre.larger-font.fragment
                         code.hljs data-trim="" data-line-numbers=""
@@ -450,34 +448,51 @@ html lang="en"
 
                                         constexpr auto 🛒🐕 = 🍎s + 🍌s + 🍌s2;
 
-                                        static_assert(🛒🐕.Cost() == 7 * Apple::price + 15 * Banana::price);
+                                        static_assert(🛒🐕.TotalCost() == 7 * Apple::price + 15 * Banana::price);
 
-                                        🛒🐕.print();
+                                        🛒🐕.Receipt();
                                     }
 
-                section 
+                section data-auto-animate=""
                     h2 Making Compile-Time Bag
-                    pre.larger-font.fragment
-                        code.hljs.cpp data-trim="" data-line-numbers=""
+                    pre.larger-font data-id="compile-time-bag-animation"
+                        code.hljs.cpp data-trim="" data-line-numbers="|2"
+                            script type="text/template"
+                                |
+                                    template <typename GroceryT>
+                                    struct Bag : public std::vector<GroceryT>{
+                                        Bag(unsigned long long n) : std::vector<GroceryT>(n) {}
+
+                                        template <typename OGroceryT>
+                                        Cart operator+(Bag<OGroceryT>& otherBag) {
+                                            return Cart(*this, otherBag);
+                                        }
+                                    };
+
+                section data-auto-animate=""
+                    h2 Making Compile-Time Bag
+                    pre.larger-font data-id="compile-time-bag-animation"
+                        code.hljs.cpp data-trim="" data-line-numbers="2|"
                             script type="text/template"
                                 |
                                     template <typename GroceryT, int Amount>
-                                    struct Bag{
-                                        using SpanT = std::span<const GroceryT, Amount>;
-
-                                        constexpr operator SpanT() const
-                                        {
-                                            return SpanT(m_items);
-                                        }
-
+                                    struct Bag : public std::array<GroceryT, Amount> {
                                         template <typename OGroceryT, int OAmount>
-                                        constexpr auto operator+(Bag<OGroceryT, OAmount> otherBag) const
-                                        {
+                                        constexpr Cart operator+(Bag<OGroceryT, OAmount> otherBag) const {
                                             return Cart(*this, otherBag);
                                         }
-
-                                        std::array<GroceryT, Amount> m_items{};
                                     };
+
+                section 
+                    h2 Core Change to Cart 
+                    pre.larger-font.fragment 
+                        code.hljs.cpp data-trim="" data-line-numbers=""
+                            script type="text/template"
+                                // std::vector<IGrocery*> m_items; // runtime implementation
+                                std::tuple<Bags...> m_bags; // compile-time implementation
+
+                section 
+                    h2 What is std::tuple?
 
 
 

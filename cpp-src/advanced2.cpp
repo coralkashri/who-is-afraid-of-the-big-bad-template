@@ -48,7 +48,20 @@ struct Cart {
     }
 
     constexpr double TotalCost() const {
-        return (BagPrice(std::get<Bags>(m_bags)) + ... + 0.0);
+        return TotalCostImpl(std::index_sequence_for<Bags...>{});
+    }
+
+    void Receipt() const {
+        ReceiptImpl(std::index_sequence_for<Bags...>{});
+        std::cout << "Total: " << TotalCost() << "\n";
+    }
+
+private:
+    std::tuple<Bags...> m_bags;
+
+    template <std::size_t... Is>
+    constexpr double TotalCostImpl(std::index_sequence<Is...>) const {
+        return (BagPrice(std::get<Is>(m_bags)) + ... + 0.0);
     }
 
     template <typename BagT>
@@ -56,17 +69,14 @@ struct Cart {
         return bag.size() * bag[0].price;
     }
 
-    void Receipt() const {
-        ([&]() {
-            const auto& bag = std::get<Bags>(m_bags);
-            std::cout << bag[0].GetName() << "s: " << bag.size() << " 💰: " << bag[0].price << "\n";
-        }(), ...);
-        
-        std::cout << "Total: " << TotalCost() << "\n";
+    template <std::size_t... Is>
+    void ReceiptImpl(std::index_sequence<Is...>) const {
+        (([&]() {
+            const auto& bag = std::get<Is>(m_bags);
+            std::cout << bag[0].GetName() << "s: " << bag.size()
+                      << " 💰: " << bag[0].price << "\n";
+        }()), ...);
     }
-
-private:
-    std::tuple<Bags...> m_bags;
 };
 
 using 🍎 = GroceryItem<"🍎", 2.99>;
@@ -100,11 +110,11 @@ int main()
 {
     constexpr auto 🍎s = 7🛍🍎;
     constexpr auto 🍌s = 10🛍🍌;
-    constexpr auto 🍌s2 = 5🛍🍌;
+    constexpr auto 🍌s2 = 10🛍🍌;
 
     constexpr auto 🛒🐕 = 🍎s + 🍌s + 🍌s2;
 
-    static_assert(🛒🐕.TotalCost() == 7 * 🍎::price + 15 * 🍌::price);
+    static_assert(🛒🐕.TotalCost() == 7 * 🍎::price + 20 * 🍌::price);
 
     🛒🐕.Receipt();
 }
