@@ -43,7 +43,7 @@ struct Cart {
     constexpr Cart(std::tuple<Bags...> bags_tuple) : m_bags(std::move(bags_tuple)) {} // Helper for operator+
 
     template <typename... OtherBags>
-    constexpr Cart<Bags..., OtherBags...> operator+(OtherBags... bags) const {
+    constexpr auto operator+(OtherBags... bags) const {
         return Cart<Bags..., OtherBags...>(std::tuple_cat(m_bags, std::make_tuple(bags...)));
     }
 
@@ -59,7 +59,8 @@ struct Cart {
     void Receipt() const {
         ([&]() {
             const auto& bag = std::get<Bags>(m_bags);
-            std::cout << bag[0].GetName() << "s: " << bag.size() << " 💰: " << bag[0].price << "\n";
+            const auto& firstItem = bag.front();
+            std::cout << firstItem.GetName() << "s: " << bag.size() << " 💰: " << firstItem.price << "\n";
         }(), ...);
         
         std::cout << "Total: " << TotalCost() << "\n";

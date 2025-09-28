@@ -488,11 +488,98 @@ html lang="en"
                     pre.larger-font.fragment 
                         code.hljs.cpp data-trim="" data-line-numbers=""
                             script type="text/template"
-                                // std::vector<IGrocery*> m_items; // runtime implementation
-                                std::tuple<Bags...> m_bags; // compile-time implementation
+                                |
+                                    // std::vector<IGrocery*> m_items; // runtime implementation
+                                    std::tuple<Bag<Apple>, Bag<Banana>, ...> m_bags; // compile-time implementation
 
                 section 
                     h2 What is std::tuple?
+                    ul
+                        li.fragment tuple is an extended std::pair, can hold an inifinite number of types.
+                        li.fragment The choise to which element we want to access should be done at compile-time.
+                    pre.larger-font.fragment 
+                        code.hljs.cpp data-trim="" data-line-numbers="|4"
+                            script type="text/template"
+                                |
+                                    std::tuple<int, double, std::string> myTuple;
+                                    std::get<0>(myTuple); // 1. Access to int
+                                    std::get<2>(myTuple); // 2. Access to std::string
+                                    std::get<double>(myTuple); // 3. Access to double
+                    h4.fragment When using typed get access, all the tuple's types have to be unique.
+                    pre.larger-font.fragment 
+                        code.hljs.cpp data-trim="" data-line-numbers=""
+                            script type="text/template"
+                                |
+                                    std::tuple<int, double, int> myTuple;
+                                    std::get<int>(myTuple); // Compile-time error.
+
+                section data-auto-animate=""
+                    h2 Cart Implementation Time
+                    pre.larger-font.fragment data-id="compile-time-cart-implemetation" 
+                        code.hljs.cpp data-trim="" data-line-numbers=""
+                            script type="text/template"
+                                |
+                                    template <typename... Bags> // Bag<Apple>, Bag<Banana>, etc...
+                                    struct Cart {
+                                        // ...
+                                    private:
+                                        std::tuple<Bags...> m_bags;
+                                        // Will be expanded to std::tuple<Bag<Apple>, Bag<Banana>, ...> m_bags;
+                                    };
+
+                section data-auto-animate=""
+                    h2 Cart Implementation Time
+                    pre.larger-font.fragment data-id="compile-time-cart-implemetation" 
+                        code.hljs.cpp data-trim="" data-line-numbers="3|4-5|7-12|14-16|18-21|23-32|24-29"
+                            script type="text/template"
+                                |
+                                    template <typename... Bags> // Bag<Apple>, Bag<Banana>, etc...
+                                    struct Cart {
+                                        constexpr Cart(Bags... bags) : m_bags{bags...} {}
+                                        // Helper for operator+
+                                        constexpr Cart(std::tuple<Bags...> bags_tuple) : m_bags(std::move(bags_tuple)) {}
+
+                                        template <typename... OtherBags>
+                                        constexpr auto operator+(OtherBags... bags) const {
+                                            return Cart<Bags..., OtherBags...>(
+                                                std::tuple_cat(m_bags, std::make_tuple(bags...))
+                                            );
+                                        }
+
+                                        constexpr double TotalCost() const {
+                                            return (BagPrice(std::get<Bags>(m_bags)) + ... + 0.0);
+                                        }
+
+                                        template <typename BagT>
+                                        static constexpr double BagPrice(const BagT& bag) {
+                                            return bag.size() * bag[0].price;
+                                        }
+
+                                        void Receipt() const {
+                                            ([&]() {
+                                                const auto& bag = std::get<Bags>(m_bags); // std::array inheritance
+                                                const auto& firstItem = bag.front();
+                                                std::cout << firstItem.GetName() << "s: "
+                                                        << bag.size() << " 💰: " << firstItem.price << "\n";
+                                            }(), ...);
+                                            
+                                            std::cout << "Total: " << TotalCost() << "\n";
+                                        }
+
+                                    private:
+                                        std::tuple<Bags...> m_bags;
+                                    };
+
+                section data-markdown=""
+                    |
+                        # Questions Time!
+                        ## Who's Afraid of the Big Bad Template?
+
+                        |                                          |   Coral Kashri, Solidus   |
+                        | :--------------------------------------: | :-----------------------: |
+                        | 📬                                       |    coralkashri@gmail.com  |
+                        | ![](dist/assets/linkedin.png#center)     |        Coral Kashri       |
+
 
 
 

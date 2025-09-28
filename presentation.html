@@ -193,4 +193,56 @@ struct Bag : public std::array<GroceryT, Amount> {
     constexpr Cart operator+(Bag<OGroceryT, OAmount> otherBag) const {
         return Cart(*this, otherBag);
     }
-};</script></code></pre></section><section><h2>Core Change to Cart </h2><pre class="larger-font fragment"><code class="hljs cpp" data-line-numbers="" data-trim=""><script type="text/template"> <std::tuple>Bags...> m_bags; // compile-time implementation</std::tuple></script></code></pre></section><section><h2>What is std::tuple?</h2></section></div></div><script charset="utf-8" src="dist/scripts/revealjs.js"></script><script charset="utf-8" src="dist/scripts/page-flip.browser.js"></script><script charset="utf-8" src="dist/scripts/custom.js"></script></body></html>
+};</script></code></pre></section><section><h2>Core Change to Cart </h2><pre class="larger-font fragment"><code class="hljs cpp" data-line-numbers="" data-trim=""><script type="text/template">// std::vector<IGrocery*> m_items; // runtime implementation
+std::tuple<Bag<Apple>, Bag<Banana>, ...> m_bags; // compile-time implementation</script></code></pre></section><section><h2>What is std::tuple?</h2><ul><li class="fragment">tuple is an extended std::pair, can hold an inifinite number of types.</li><li class="fragment">The choise to which element we want to access should be done at compile-time.</li></ul><pre class="larger-font fragment"><code class="hljs cpp" data-line-numbers="|4" data-trim=""><script type="text/template">std::tuple<int, double, std::string> myTuple;
+std::get<0>(myTuple); // 1. Access to int
+std::get<2>(myTuple); // 2. Access to std::string
+std::get<double>(myTuple); // 3. Access to double</script></code></pre><h4 class="fragment">When using typed get access, all the tuple's types have to be unique.</h4><pre class="larger-font fragment"><code class="hljs cpp" data-line-numbers="" data-trim=""><script type="text/template">std::tuple<int, double, int> myTuple;
+std::get<int>(myTuple); // Compile-time error.</script></code></pre></section><section data-auto-animate=""><h2>Cart Implementation Time</h2><pre class="larger-font fragment" data-id="compile-time-cart-implemetation"><code class="hljs cpp" data-line-numbers="" data-trim=""><script type="text/template">template <typename... Bags> // Bag<Apple>, Bag<Banana>, etc...
+struct Cart {
+    // ...
+private:
+    std::tuple<Bags...> m_bags;
+    // Will be expanded to std::tuple<Bag<Apple>, Bag<Banana>, ...> m_bags;
+};</script></code></pre></section><section data-auto-animate=""><h2>Cart Implementation Time</h2><pre class="larger-font fragment" data-id="compile-time-cart-implemetation"><code class="hljs cpp" data-line-numbers="3|4-5|7-12|14-16|18-21|23-32|24-29" data-trim=""><script type="text/template">template <typename... Bags> // Bag<Apple>, Bag<Banana>, etc...
+struct Cart {
+    constexpr Cart(Bags... bags) : m_bags{bags...} {}
+    // Helper for operator+
+    constexpr Cart(std::tuple<Bags...> bags_tuple) : m_bags(std::move(bags_tuple)) {}
+
+    template <typename... OtherBags>
+    constexpr auto operator+(OtherBags... bags) const {
+        return Cart<Bags..., OtherBags...>(
+            std::tuple_cat(m_bags, std::make_tuple(bags...))
+        );
+    }
+
+    constexpr double TotalCost() const {
+        return (BagPrice(std::get<Bags>(m_bags)) + ... + 0.0);
+    }
+
+    template <typename BagT>
+    static constexpr double BagPrice(const BagT& bag) {
+        return bag.size() * bag[0].price;
+    }
+
+    void Receipt() const {
+        ([&]() {
+            const auto& bag = std::get<Bags>(m_bags); // std::array inheritance
+            const auto& firstItem = bag.front();
+            std::cout << firstItem.GetName() << "s: "
+                    << bag.size() << " 💰: " << firstItem.price << "\n";
+        }(), ...);
+
+        std::cout << "Total: " << TotalCost() << "\n";
+    }
+
+private:
+    std::tuple<Bags...> m_bags;
+};</script></code></pre></section><section data-markdown=""># Questions Time!
+## Who's Afraid of the Big Bad Template?
+
+|                                          |   Coral Kashri, Solidus   |
+| :--------------------------------------: | :-----------------------: |
+| 📬                                       |    coralkashri@gmail.com  |
+| ![](dist/assets/linkedin.png#center)     |        Coral Kashri       |</section></div></div><script charset="utf-8" src="dist/scripts/revealjs.js"></script><script charset="utf-8" src="dist/scripts/page-flip.browser.js"></script><script charset="utf-8" src="dist/scripts/custom.js"></script></body></html>

@@ -112,12 +112,11 @@ using Apple = GroceryItem<"apple", 2.99>;
 using Banana = GroceryItem<"banana", 5.34>;
 
 template <typename GroceryT>
-struct Bag : public std::vector<GroceryT>{
+struct Bag : public std::vector<GroceryT> {
     Bag(unsigned long long n) : std::vector<GroceryT>(n) {}
 
     template <typename OGroceryT>
-    Cart operator+(Bag<OGroceryT>& otherBag)
-    {
+    Cart operator+(Bag<OGroceryT>& otherBag) {
         return Cart(*this, otherBag);
     }
 };
