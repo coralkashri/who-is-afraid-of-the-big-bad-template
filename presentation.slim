@@ -24,8 +24,16 @@ html lang="en"
                         # Who am I? :)
                         ## Coral Kashri (She/Her)
                         * Senior C++ Developer
-                        * C++ Senioreas blog writer
+                        * [C++ Senioreas](https:://cppsenioreas.wordpress.com) blog writer
                         * ISO C++ committee member
+
+                section
+                    .r-stack
+                        img.fragment src="dist/assets/but_whyy.png"
+                        img.fragment src="dist/assets/why_bother.png"
+                        img.fragment src="dist/assets/errors.png"
+                        img.fragment src="dist/assets/red_pill_blue_pill.png"
+                        
 
                 section
                         h2 Story Time!
@@ -46,7 +54,6 @@ html lang="en"
                                         |
                                             Everything you see or hear in this talk is purely fictional and not connected to any real company I’ve ever come across.
                                             Also, the examples are for demonstration only ✨ (and yes… there may be much better design approaches 🙃).
-                                    / .page-footer 1
                             
                             .page-slide
                                 .page-content
@@ -64,7 +71,6 @@ html lang="en"
 
                                                 At the <- it all seemed so easy, as the idea was simply 💡💡💡 -
                                                 to create a list of 🍓 to collect in the 🌲🌲 before going out and forgetting what was needed.<br><br>
-                                    / .page-footer 3
                             
                             .page-slide
                                 .page-content
@@ -85,8 +91,6 @@ html lang="en"
                                         h5
                                             |
                                                 <br><br>After completing the product, there was no need for a team to 🛠️ it, and the team was able to std::move std::forward to other technology challenges.
-                                    / .page-footer 4
-                                    / TODO: Add a picture of a small basket with groceries
 
                             .page-slide
                                 .page-content
@@ -94,15 +98,15 @@ html lang="en"
                                     .page-text
                                         h4
                                             |
-                                                ⌚ 🚶🏽‍♀️ by and an invention of a new modern 🧺 aimed to destroy the company 🥇s.<br>
-                                                A modern 🧺 which can contain up to <b>10</b> 🍇 at the same time!<br><br>
+                                                ⌚ 🚶🏽‍♀️ by, and the invention of a new modern 🧺 aimed to destroy the company's 🥇s.<br>
+                                                A modern 🧺 that can contain up to <b>10</b> 🍇 at the same time!<br><br>
 
                             .page-slide
                                 .page-content
                                     .page-text
                                         h4 
                                             |
-                                                But the company CTO was not about to 🏳️, she moved back her team to this product and together created a newer
+                                                But the company CTO was not about to 🏳️, she moved her team back to this product and together created a newer
                                                 list named <b>modern_basket</b>:<br><br>
                                         pre.larger-font 
                                             code.hljs.cpp data-trim="" data-line-numbers=""
@@ -111,9 +115,6 @@ html lang="en"
                                                         class modern_basket {
                                                             grocery groceries[10];
                                                         };
-                                        / TODO: Add a picture of a large basket with groceries
-
-                                    / .page-footer 5
 
                             .page-slide 
                                 .page-content 
@@ -124,8 +125,7 @@ html lang="en"
                                                 The new 💡 👆🏽 the company's stock price 📈, and everything
                                                 seemed so peaceful for the company, until a newer 💡 got the attention of the 🌎.<br><br>
                                                 A 🛒!<br><br>
-                                                This 🛒 was able to contian up to <b>50</b> (🤯) 🍄‍🟫s at the same time.
-                                    / .page-footer 6
+                                                This 🛒 was able to contain up to <b>50</b> (🤯) 🍄‍🟫s at the same time.
 
                             .page-slide 
                                 .page-content 
@@ -134,7 +134,7 @@ html lang="en"
                                             |
                                                 The CTO was 😫.<br><br>
                                                 She and the team 🔎 it frustrating to create each time a new moderner modern container.<br>
-                                                She knew they needed something 🧠, more dynamic and flexible.<br>
+                                                She knew they needed something 🧠, more dynamic, and flexible.<br>
                                                 And in times of despair, she decided to do the inevitable upgrade to their architecture:
 
                                         pre.fragment.current-visible data-id="code-animation-1" data-fragment-index="0"
@@ -146,7 +146,6 @@ html lang="en"
                                                         class groceries_container {
                                                             grocery groceries[Capacity];
                                                         };
-                                    / .page-footer 7
 
                             .page-slide 
                                 .page-content 
@@ -158,12 +157,11 @@ html lang="en"
 
                                             The company started to use more <😇> code.
                                             They learned constexpr, consteval, fold-expressions, reflection (well, soon...).
-                                            They built compile time tools and features.
+                                            They built compile-time tools and features.
 
                                             Their company grew.
                                             And the CTO was finally happy —
                                             because she never had to write the std::next extremely_truly_moderner_basket.
-                                    / .page-footer 9
 
                             .page-slide 
                                 .page-content 
@@ -179,6 +177,10 @@ html lang="en"
                         li.fragment constexpr, consteval
                         li.fragment Advanced templates: Variaic template, fold-expressions, concepts...
                         li.fragment C++ Metaprogramming is a Turing-Complete language
+                    
+                    aside.notes
+                        |
+                            Brifely speak - 1 minute
 
                 section
                     h2 NTTP vs. TTP
@@ -193,8 +195,19 @@ html lang="en"
                         code.hljs.cpp data-trim="" data-line-numbers=""
                             script type="text/template"
                                 |
+                                    template <int N1, int N2>
+                                    consteval auto sum() { return N1 + N2; }
+
+                    pre.fragment
+                        code.hljs.cpp data-trim="" data-line-numbers=""
+                            script type="text/template"
+                                |
                                     template <typename T, T N1, T N2>
                                     consteval auto sum() { return N1 + N2; }
+
+                    aside.notes
+                        |
+                            Brifely speak - 30 seconds
 
                 section
                     h2 NTTP Main Restrictions
@@ -202,6 +215,10 @@ html lang="en"
                         li.fragment All structure's members (and their members) should be known at compile-time
                         li.fragment All structure's members (and their members) should be public
                         li.fragment Does std::string_view can be used as NTTP?
+                    
+                    aside.notes
+                        |
+                            Brifely speak - 30 seconds (you can mention constexpr function parametes as part of Israeli committee)
 
                 section data-auto-animate=""
                     h2 std::string_view Implementation
@@ -213,6 +230,7 @@ html lang="en"
                                         char* value;
                                         size_t size;
                                     };
+
                 section data-auto-animate=""
                     h2 NTTP friendly FixedString
                     pre data-id="code-animation"
@@ -223,6 +241,7 @@ html lang="en"
                                     struct FixedString {
                                         char value[N];
                                     };
+
                 section data-auto-animate=""
                     h2 NTTP friendly FixedString
                     pre data-id="code-animation"
@@ -246,6 +265,7 @@ html lang="en"
                                             return true;
                                         }
                                     };
+                                    
                 section
                     h2 Shopping Time!
                     h3 Grocey Interface 
@@ -301,13 +321,13 @@ html lang="en"
 
                                         template <typename OGroceryT>
                                         Cart operator+(Bag<OGroceryT>& otherBag) {
-                                            return Cart(*this, otherBag); // We'll define it later
+                                            return Cart(*this, otherBag); // We'll define Cart later
                                         }
                                     };
 
                 section
                     h2 Creating a Cart 
-                    pre.larger-font
+                    pre
                         code.hljs.cpp data-trim="" data-line-numbers="1-8|10-19|21-27|28-36|38-48|50-52"
                             script type="text/template"
                                 |

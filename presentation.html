@@ -5,8 +5,8 @@
 ### CoreC++ 2025</section><section data-markdown=""># Who am I? :)
 ## Coral Kashri (She/Her)
 * Senior C++ Developer
-* C++ Senioreas blog writer
-* ISO C++ committee member</section><section><h2>Story Time!</h2></section><section id="book-slide"><div style="width: 90vw; height: 90vh; padding: 0 0 0 5vw;"><div id="flipbook-container"><div class="page-slide page-cover page-cover-top" data-density="hard"><div class="page-content"><h2>The Big Bad Template</h2></div></div><div class="page-slide"><div class="page-content"><h2 class="page-header">Disclaimer 😇</h2><div class="page-text"><h5 id="disclaimer"></h5></div><h6 id="disclaimer-hidden" style="display: none">Everything you see or hear in this talk is purely fictional and not connected to any real company I’ve ever come across.
+* [C++ Senioreas](https:://cppsenioreas.wordpress.com) blog writer
+* ISO C++ committee member</section><section><div class="r-stack"><img class="fragment" src="dist/assets/but_whyy.png" /><img class="fragment" src="dist/assets/why_bother.png" /><img class="fragment" src="dist/assets/errors.png" /><img class="fragment" src="dist/assets/red_pill_blue_pill.png" /></div></section><section><h2>Story Time!</h2></section><section id="book-slide"><div style="width: 90vw; height: 90vh; padding: 0 0 0 5vw;"><div id="flipbook-container"><div class="page-slide page-cover page-cover-top" data-density="hard"><div class="page-content"><h2>The Big Bad Template</h2></div></div><div class="page-slide"><div class="page-content"><h2 class="page-header">Disclaimer 😇</h2><div class="page-text"><h5 id="disclaimer"></h5></div><h6 id="disclaimer-hidden" style="display: none">Everything you see or hear in this talk is purely fictional and not connected to any real company I’ve ever come across.
 Also, the examples are for demonstration only ✨ (and yes… there may be much better design approaches 🙃).</h6></div></div><div class="page-slide"><div class="page-content"></div></div><div class="page-slide"><div class="page-content"><h2 class="page-header">Once upon a ⌚...</h2><div class="page-text"><h5>There was a little 🏢, and this 🏢 had an intelligent CTO who just hated templates <😈>.<br><br>
 
 There was always the assumption that 😈s are difficult to maintain and that it's much harder
@@ -19,16 +19,16 @@ to create a list of 🍓 to collect in the 🌲🌲 before going out and forgett
 
 class basket {
     grocery groceries[5];
-};</script></code></pre></div><h5><br><br>After completing the product, there was no need for a team to 🛠️ it, and the team was able to std::move std::forward to other technology challenges.</h5></div></div></div><div class="page-slide"><div class="page-content"><h2 class="page-header">Modern 🧺</h2><div class="page-text"><h4>⌚ 🚶🏽‍♀️ by and an invention of a new modern 🧺 aimed to destroy the company 🥇s.<br>
-A modern 🧺 which can contain up to <b>10</b> 🍇 at the same time!<br><br></h4></div></div></div><div class="page-slide"><div class="page-content"><div class="page-text"><h4>But the company CTO was not about to 🏳️, she moved back her team to this product and together created a newer
+};</script></code></pre></div><h5><br><br>After completing the product, there was no need for a team to 🛠️ it, and the team was able to std::move std::forward to other technology challenges.</h5></div></div></div><div class="page-slide"><div class="page-content"><h2 class="page-header">Modern 🧺</h2><div class="page-text"><h4>⌚ 🚶🏽‍♀️ by, and the invention of a new modern 🧺 aimed to destroy the company's 🥇s.<br>
+A modern 🧺 that can contain up to <b>10</b> 🍇 at the same time!<br><br></h4></div></div></div><div class="page-slide"><div class="page-content"><div class="page-text"><h4>But the company CTO was not about to 🏳️, she moved her team back to this product and together created a newer
 list named <b>modern_basket</b>:<br><br></h4><pre class="larger-font"><code class="hljs cpp" data-line-numbers="" data-trim=""><script type="text/template">class modern_basket {
     grocery groceries[10];
 };</script></code></pre></div></div></div><div class="page-slide"><div class="page-content"><h2 class="page-header">Extremely Truly Absolutely Modern 🧺</h2><div class="page-text"><h5>The new 💡 👆🏽 the company's stock price 📈, and everything
 seemed so peaceful for the company, until a newer 💡 got the attention of the 🌎.<br><br>
 A 🛒!<br><br>
-This 🛒 was able to contian up to <b>50</b> (🤯) 🍄‍🟫s at the same time.</h5></div></div></div><div class="page-slide"><div class="page-content"><div class="page-text"><h5>The CTO was 😫.<br><br>
+This 🛒 was able to contain up to <b>50</b> (🤯) 🍄‍🟫s at the same time.</h5></div></div></div><div class="page-slide"><div class="page-content"><div class="page-text"><h5>The CTO was 😫.<br><br>
 She and the team 🔎 it frustrating to create each time a new moderner modern container.<br>
-She knew they needed something 🧠, more dynamic and flexible.<br>
+She knew they needed something 🧠, more dynamic, and flexible.<br>
 And in times of despair, she decided to do the inevitable upgrade to their architecture:</h5><pre class="fragment current-visible" data-fragment-index="0" data-id="code-animation-1"></pre><pre class="larger-font fragment" data-fragment-index="1" data-id="code-animation-1"><code class="hljs cpp" data-line-numbers="" data-trim=""><script type="text/template">template <size_t Capacity>
 class groceries_container {
     grocery groceries[Capacity];
@@ -36,13 +36,14 @@ class groceries_container {
 
 The company started to use more <😇> code.
 They learned constexpr, consteval, fold-expressions, reflection (well, soon...).
-They built compile time tools and features.
+They built compile-time tools and features.
 
 Their company grew.
 And the CTO was finally happy —
-because she never had to write the std::next extremely_truly_moderner_basket.</h6></div></div><div class="page-slide"><div class="page-content"></div></div><div class="page-slide page-cover page-cover-bottom" data-density="hard"><div class="page-content"><h2>The End</h2></div></div></div></div></section><section><h2>Templates? Metaprogramming?</h2><ul><li class="fragment">Templates are part of Metaprogramming</li><li class="fragment">constexpr, consteval</li><li class="fragment">Advanced templates: Variaic template, fold-expressions, concepts...</li><li class="fragment">C++ Metaprogramming is a Turing-Complete language</li></ul></section><section><h2>NTTP vs. TTP</h2><pre class="fragment"><code class="hljs cpp" data-line-numbers="" data-trim=""><script type="text/template">template <typename T>
-constexpr auto sum(T n1, T n2) { return n1 + n2; }</script></code></pre><pre class="fragment"><code class="hljs cpp" data-line-numbers="" data-trim=""><script type="text/template">template <typename T, T N1, T N2>
-consteval auto sum() { return N1 + N2; }</script></code></pre></section><section><h2>NTTP Main Restrictions</h2><ul><li class="fragment">All structure's members (and their members) should be known at compile-time</li><li class="fragment">All structure's members (and their members) should be public</li><li class="fragment">Does std::string_view can be used as NTTP?</li></ul></section><section data-auto-animate=""><h2>std::string_view Implementation</h2><pre data-id="code-animation"><code class="hljs cpp" data-line-numbers="" data-trim=""><script type="text/template">struct string_view {
+because she never had to write the std::next extremely_truly_moderner_basket.</h6></div></div><div class="page-slide"><div class="page-content"></div></div><div class="page-slide page-cover page-cover-bottom" data-density="hard"><div class="page-content"><h2>The End</h2></div></div></div></div></section><section><h2>Templates? Metaprogramming?</h2><ul><li class="fragment">Templates are part of Metaprogramming</li><li class="fragment">constexpr, consteval</li><li class="fragment">Advanced templates: Variaic template, fold-expressions, concepts...</li><li class="fragment">C++ Metaprogramming is a Turing-Complete language</li></ul><aside class="notes">Brifely speak - 1 minute</aside></section><section><h2>NTTP vs. TTP</h2><pre class="fragment"><code class="hljs cpp" data-line-numbers="" data-trim=""><script type="text/template">template <typename T>
+constexpr auto sum(T n1, T n2) { return n1 + n2; }</script></code></pre><pre class="fragment"><code class="hljs cpp" data-line-numbers="" data-trim=""><script type="text/template">template <int N1, int N2>
+consteval auto sum() { return N1 + N2; }</script></code></pre><pre class="fragment"><code class="hljs cpp" data-line-numbers="" data-trim=""><script type="text/template">template <typename T, T N1, T N2>
+consteval auto sum() { return N1 + N2; }</script></code></pre><aside class="notes">Brifely speak - 30 seconds</aside></section><section><h2>NTTP Main Restrictions</h2><ul><li class="fragment">All structure's members (and their members) should be known at compile-time</li><li class="fragment">All structure's members (and their members) should be public</li><li class="fragment">Does std::string_view can be used as NTTP?</li></ul><aside class="notes">Brifely speak - 30 seconds (you can mention constexpr function parametes as part of Israeli committee)</aside></section><section data-auto-animate=""><h2>std::string_view Implementation</h2><pre data-id="code-animation"><code class="hljs cpp" data-line-numbers="" data-trim=""><script type="text/template">struct string_view {
     char* value;
     size_t size;
 };</script></code></pre></section><section data-auto-animate=""><h2>NTTP friendly FixedString</h2><pre data-id="code-animation"><code class="hljs cpp" data-line-numbers="" data-trim=""><script type="text/template">template <size_t N>
@@ -96,9 +97,9 @@ struct Bag : public std::vector<GroceryT>{
 
     template <typename OGroceryT>
     Cart operator+(Bag<OGroceryT>& otherBag) {
-        return Cart(*this, otherBag); // We'll define it later
+        return Cart(*this, otherBag); // We'll define Cart later
     }
-};</script></code></pre></section><section><h2>Creating a Cart </h2><pre class="larger-font"><code class="hljs cpp" data-line-numbers="1-8|10-19|21-27|28-36|38-48|50-52" data-trim=""><script type="text/template">struct Cart {
+};</script></code></pre></section><section><h2>Creating a Cart </h2><pre><code class="hljs cpp" data-line-numbers="1-8|10-19|21-27|28-36|38-48|50-52" data-trim=""><script type="text/template">struct Cart {
     template <typename... Items>
     Cart(std::vector<Items>&... items) {
         auto list = {(items | std::views::transform([](auto& i) { return &i; }) | std::ranges::to<std::vector<IGrocery*>>())...};
