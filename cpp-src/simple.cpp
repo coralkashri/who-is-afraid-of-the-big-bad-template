@@ -9,14 +9,9 @@ struct FixedString {
     char value[N];
 
     constexpr FixedString(const char (&str)[N]) {
-        for (size_t i = 0; i < N; ++i)
+        for (size_t i = 0; i < N; ++i) {
             value[i] = str[i];
-    }
-
-    constexpr bool operator==(const FixedString& other) const {
-        for (size_t i = 0; i < N; ++i)
-            if (value[i] != other.value[i]) return false;
-        return true;
+        }
     }
 };
 

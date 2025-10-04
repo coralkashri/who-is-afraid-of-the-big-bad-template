@@ -6,7 +6,7 @@
 ## Coral Kashri (She/Her)
 * Senior C++ Developer
 * [C++ Senioreas](https:://cppsenioreas.wordpress.com) blog writer
-* ISO C++ committee member</section><section><div class="r-stack"><img class="fragment" src="dist/assets/but_whyy.png" /><img class="fragment" src="dist/assets/why_bother.png" /><img class="fragment" src="dist/assets/errors.png" /><img class="fragment" src="dist/assets/red_pill_blue_pill.png" /></div></section><section><h2>Story Time!</h2></section><section id="book-slide"><div style="width: 90vw; height: 90vh; padding: 0 0 0 5vw;"><div id="flipbook-container"><div class="page-slide page-cover page-cover-top" data-density="hard"><div class="page-content"><h2>The Big Bad Template</h2></div></div><div class="page-slide"><div class="page-content"><h2 class="page-header">Disclaimer 😇</h2><div class="page-text"><h5 id="disclaimer"></h5></div><h6 id="disclaimer-hidden" style="display: none">Everything you see or hear in this talk is purely fictional and not connected to any real company I’ve ever come across.
+* ISO C++ committee member</section><section><div class="r-stack"><img src="dist/assets/raise_hands.png" style="height: 100vh;" /><img class="fragment" src="dist/assets/but_whyy.png" style="height: 100vh;" /><img class="fragment" src="dist/assets/why_bother.png" style="height: 100vh;" /><img class="fragment" src="dist/assets/errors.png" style="height: 100vh;" /><img class="fragment" src="dist/assets/less_errors.png" style="height: 100vh;" /><img class="fragment" src="dist/assets/red_pill_blue_pill.png" style="height: 100vh;" /></div></section><section><h2>Story Time!</h2></section><section id="book-slide"><div style="width: 90vw; height: 90vh; padding: 0 0 0 5vw;"><div id="flipbook-container"><div class="page-slide page-cover page-cover-top" data-density="hard"><div class="page-content"><h2>The Big Bad Template</h2></div></div><div class="page-slide"><div class="page-content"><h2 class="page-header">Disclaimer 😇</h2><div class="page-text"><h5 id="disclaimer"></h5></div><h6 id="disclaimer-hidden" style="display: none">Everything you see or hear in this talk is purely fictional and not connected to any real company I’ve ever come across.
 Also, the examples are for demonstration only ✨ (and yes… there may be much better design approaches 🙃).</h6></div></div><div class="page-slide"><div class="page-content"></div></div><div class="page-slide"><div class="page-content"><h2 class="page-header">Once upon a ⌚...</h2><div class="page-text"><h5>There was a little 🏢, and this 🏢 had an intelligent CTO who just hated templates <😈>.<br><br>
 
 There was always the assumption that 😈s are difficult to maintain and that it's much harder
@@ -40,16 +40,16 @@ They built compile-time tools and features.
 
 Their company grew.
 And the CTO was finally happy —
-because she never had to write the std::next extremely_truly_moderner_basket.</h6></div></div><div class="page-slide"><div class="page-content"></div></div><div class="page-slide page-cover page-cover-bottom" data-density="hard"><div class="page-content"><h2>The End</h2></div></div></div></div></section><section><h2>Templates? Metaprogramming?</h2><ul><li class="fragment">Templates are part of Metaprogramming</li><li class="fragment">constexpr, consteval</li><li class="fragment">Advanced templates: Variaic template, fold-expressions, concepts...</li><li class="fragment">C++ Metaprogramming is a Turing-Complete language</li></ul><aside class="notes">Brifely speak - 1 minute</aside></section><section><h2>NTTP vs. TTP</h2><pre class="fragment"><code class="hljs cpp" data-line-numbers="" data-trim=""><script type="text/template">template <typename T>
-constexpr auto sum(T n1, T n2) { return n1 + n2; }</script></code></pre><pre class="fragment"><code class="hljs cpp" data-line-numbers="" data-trim=""><script type="text/template">template <int N1, int N2>
-consteval auto sum() { return N1 + N2; }</script></code></pre><pre class="fragment"><code class="hljs cpp" data-line-numbers="" data-trim=""><script type="text/template">template <typename T, T N1, T N2>
-consteval auto sum() { return N1 + N2; }</script></code></pre><aside class="notes">Brifely speak - 30 seconds</aside></section><section><h2>NTTP Main Restrictions</h2><ul><li class="fragment">All structure's members (and their members) should be known at compile-time</li><li class="fragment">All structure's members (and their members) should be public</li><li class="fragment">Does std::string_view can be used as NTTP?</li></ul><aside class="notes">Brifely speak - 30 seconds (you can mention constexpr function parametes as part of Israeli committee)</aside></section><section data-auto-animate=""><h2>std::string_view Implementation</h2><pre data-id="code-animation"><code class="hljs cpp" data-line-numbers="" data-trim=""><script type="text/template">struct string_view {
+because she never had to write the std::next extremely_truly_moderner_basket.</h6></div></div><div class="page-slide"><div class="page-content"></div></div><div class="page-slide page-cover page-cover-bottom" data-density="hard"><div class="page-content"><h2>The End</h2></div></div></div></div></section><section><h2>Templates? Metaprogramming?</h2><ul><li class="fragment">Templates are part of Metaprogramming</li><li class="fragment">constexpr, consteval</li><li class="fragment">Advanced templates: Variaic template, fold-expressions, concepts...</li><li class="fragment">C++ Metaprogramming is a Turing-Complete language</li></ul><aside class="notes">Brifely speak - 1 minute</aside></section><section><h2>NTTP vs. TTP</h2><pre class="larger-font fragment"><code class="hljs cpp" data-line-numbers="" data-trim=""><script type="text/template">template <typename T>
+constexpr auto sum(T n1, T n2) { return n1 + n2; }</script></code></pre><pre class="larger-font fragment"><code class="hljs cpp" data-line-numbers="" data-trim=""><script type="text/template">template <int N1, int N2>
+consteval auto sum() { return N1 + N2; }</script></code></pre><pre class="larger-font fragment"><code class="hljs cpp" data-line-numbers="" data-trim=""><script type="text/template">template <typename T, T N1, T N2>
+consteval auto sum() { return N1 + N2; }</script></code></pre><aside class="notes">Brifely speak - 30 seconds</aside></section><section><h2>NTTP Main Restrictions</h2><ul><li class="fragment">All structure's members (and their members) should be known at compile-time</li><li class="fragment">All structure's members (and their members) should be public</li><li class="fragment">Does std::string_view can be used as NTTP?</li></ul><aside class="notes">Brifely speak - 30 seconds (you can mention constexpr function parametes as part of Israeli committee)</aside></section><section data-auto-animate=""><h2>std::string_view Implementation</h2><pre class="larger-font" data-id="code-animation"><code class="hljs cpp" data-line-numbers="" data-trim=""><script type="text/template">struct string_view {
     char* value;
     size_t size;
-};</script></code></pre></section><section data-auto-animate=""><h2>NTTP friendly FixedString</h2><pre data-id="code-animation"><code class="hljs cpp" data-line-numbers="" data-trim=""><script type="text/template">template <size_t N>
+};</script></code></pre></section><section data-auto-animate=""><h2>NTTP friendly FixedString</h2><pre class="larger-font" data-id="code-animation"><code class="hljs cpp" data-line-numbers="" data-trim=""><script type="text/template">template <size_t N>
 struct FixedString {
     char value[N];
-};</script></code></pre></section><section data-auto-animate=""><h2>NTTP friendly FixedString</h2><pre data-id="code-animation"><code class="hljs cpp" data-line-numbers="" data-trim=""><script type="text/template">template <size_t N>
+};</script></code></pre></section><section data-auto-animate=""><h2>NTTP friendly FixedString</h2><pre class="larger-font" data-id="code-animation"><code class="hljs cpp" data-line-numbers="" data-trim=""><script type="text/template">template <size_t N>
 struct FixedString {
     char value[N];
 
@@ -58,21 +58,14 @@ struct FixedString {
             value[i] = str[i];
         }
     }
-
-    constexpr bool operator==(const FixedString& other) const {
-        for (size_t i = 0; i < N; ++i) {
-            if (value[i] != other.value[i]) return false;
-        }
-        return true;
-    }
-};</script></code></pre></section><section><h2>Shopping Time!</h2><h3>Grocey Interface </h3><pre><code class="hljs cpp" data-line-numbers="" data-trim=""><script type="text/template">struct IGrocery {
+};</script></code></pre></section><section><h2>Shopping Time!</h2><h3>Grocey Interface </h3><pre class="larger-font"><code class="hljs cpp" data-line-numbers="" data-trim=""><script type="text/template">struct IGrocery {
     virtual constexpr std::string_view GetName() const = 0;
     virtual constexpr double GetPrice() const = 0;
     virtual constexpr bool operator==(const IGrocery& ref) const = 0;
     constexpr bool operator!=(const IGrocery& ref) const = default;
 };
 
-// In our cart we'll use: std::vector<IGrocery*> m_items;</script></code></pre></section><section><h2>Grocery Items</h2><pre><code class="hljs cpp" data-line-numbers="" data-trim=""><script type="text/template">template <FixedString Name, double Price>
+// In our cart we'll use: std::vector<IGrocery*> m_items;</script></code></pre></section><section><h2>Grocery Items</h2><pre class="larger-font"><code class="hljs cpp" data-line-numbers="1-2|3-4|6-16|19-20" data-trim=""><script type="text/template">template <FixedString Name, double Price>
 struct GroceryItem : IGrocery {
     static constexpr auto name = Name;
     static constexpr double price = Price;
@@ -91,7 +84,7 @@ struct GroceryItem : IGrocery {
 };
 
 using Apple = GroceryItem<"apple", 2.99>; // compile-time
-using Banana = GroceryItem<"banana", 5.34>; // compile-time</script></code></pre></section><section><h2>Creating A Bag </h2><pre><code class="hljs cpp" data-line-numbers="1-3|5-9" data-trim=""><script type="text/template">template <typename GroceryT>
+using Banana = GroceryItem<"banana", 5.34>; // compile-time</script></code></pre></section><section><h2>Creating A Bag </h2><pre class="larger-font"><code class="hljs cpp" data-line-numbers="1-3|5-9" data-trim=""><script type="text/template">template <typename GroceryT>
 struct Bag : public std::vector<GroceryT>{
     Bag(unsigned long long n) : std::vector<GroceryT>(n) {}
 
@@ -99,10 +92,15 @@ struct Bag : public std::vector<GroceryT>{
     Cart operator+(Bag<OGroceryT>& otherBag) {
         return Cart(*this, otherBag); // We'll define Cart later
     }
-};</script></code></pre></section><section><h2>Creating a Cart </h2><pre><code class="hljs cpp" data-line-numbers="1-8|10-19|21-27|28-36|38-48|50-52" data-trim=""><script type="text/template">struct Cart {
+};</script></code></pre></section><section><h2>Creating a Cart </h2><pre class="larger-font"><code class="hljs cpp" data-line-numbers="1|55-57|2-13|4|5-7|8|9|10-12|15-24|26-31|33-41|43-53" data-trim=""><script type="text/template">struct Cart {
     template <typename... Items>
     Cart(std::vector<Items>&... items) {
-        auto list = {(items | std::views::transform([](auto& i) { return &i; }) | std::ranges::to<std::vector<IGrocery*>>())...};
+        auto list = {(items |
+                        std::views::transform(
+                            [](auto& i) { return &i; }
+                        ) |
+                        std::ranges::to<std::vector<IGrocery*>>())
+                        ...};
         for (auto l : list) {
             m_items.insert(m_items.end(), l.begin(), l.end());
         }
@@ -205,11 +203,12 @@ struct Cart {
 private:
     std::tuple<Bags...> m_bags;
     // Will be expanded to std::tuple<Bag<Apple>, Bag<Banana>, ...> m_bags;
-};</script></code></pre></section><section data-auto-animate=""><h2>Cart Implementation Time</h2><pre class="larger-font fragment" data-id="compile-time-cart-implemetation"><code class="hljs cpp" data-line-numbers="3|4-5|7-12|14-16|18-21|23-32|24-29" data-trim=""><script type="text/template">template <typename... Bags> // Bag<Apple>, Bag<Banana>, etc...
+};</script></code></pre></section><section data-auto-animate=""><h2>Cart Implementation Time</h2><pre class="larger-font fragment" data-id="compile-time-cart-implemetation"><code class="hljs cpp" data-line-numbers="3|4-6|8-13|15-17|19-22|24-34|25-31" data-trim=""><script type="text/template">template <typename... Bags> // Bag<Apple>, Bag<Banana>, etc...
 struct Cart {
     constexpr Cart(Bags... bags) : m_bags{bags...} {}
     // Helper for operator+
-    constexpr Cart(std::tuple<Bags...> bags_tuple) : m_bags(std::move(bags_tuple)) {}
+    constexpr Cart(std::tuple<Bags...> bags_tuple)
+                : m_bags(std::move(bags_tuple)) {}
 
     template <typename... OtherBags>
     constexpr auto operator+(OtherBags... bags) const {
@@ -232,7 +231,8 @@ struct Cart {
             const auto& bag = std::get<Bags>(m_bags); // std::array inheritance
             const auto& firstItem = bag.front();
             std::cout << firstItem.GetName() << "s: "
-                    << bag.size() << " 💰: " << firstItem.price << "\n";
+                    << bag.size() << " 💰: " << firstItem.price
+                    << "\n";
         }(), ...);
 
         std::cout << "Total: " << TotalCost() << "\n";
