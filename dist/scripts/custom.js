@@ -125,33 +125,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
         initializeBook();
 
-        // const showHideNextFregment = (isForward, pageIndex) => {
-        //     if (isForward)
-        //     {
-        //         const fragments = document
-        //                             .querySelectorAll('.page-slide')[pageIndex]
-        //                             .querySelectorAll('.fragment:not(.visible)');
-
-        //         if (fragments.length > 0) {
-        //             fragments[0].classList.add('visible'); // show next fragment
-        //             return true; // stop normal navigation
-        //         }
-
-        //         return false;
-        //     }
-
-        //     let fragments = document
-        //                         .querySelectorAll('.page-slide')[pageIndex]
-        //                         .querySelectorAll('.fragment.visible');
-                        
-        //     if (fragments.length > 0) {
-        //         fragments[fragments.length - 1].classList.remove('visible'); // hide last fragment
-        //         return true;
-        //     }
-
-        //     return false
-        // };
-
         const showHideNextFragment = (isForward, pageIndex) => {
             const page = document.querySelectorAll('.page-slide')[pageIndex];
             if (!page) return false;
