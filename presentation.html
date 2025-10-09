@@ -6,7 +6,7 @@
 ## Coral Kashri (She/Her)
 * Senior C++ Developer
 * [C++ Senioreas](https:://cppsenioreas.wordpress.com) blog writer
-* ISO C++ committee member</section><section><div class="r-stack"><img src="dist/assets/raise_hands.png" style="height: 100vh;" /><img class="fragment" src="dist/assets/but_whyy.png" style="height: 100vh;" /><img class="fragment" src="dist/assets/why_bother.png" style="height: 100vh;" /><img class="fragment" src="dist/assets/errors.png" style="height: 100vh;" /><img class="fragment" src="dist/assets/less_errors.png" style="height: 100vh;" /><img class="fragment" src="dist/assets/red_pill_blue_pill.png" style="height: 100vh;" /></div></section><section><h2>Story Time!</h2></section><section id="book-slide"><div style="width: 90vw; height: 90vh; padding: 0 0 0 5vw;"><div id="flipbook-container"><div class="page-slide page-cover page-cover-top" data-density="hard"><div class="page-content"><h2>The Big Bad Template</h2></div></div><div class="page-slide"><div class="page-content"><h2 class="page-header">Disclaimer 😇</h2><div class="page-text"><h5 id="disclaimer"></h5></div><h6 id="disclaimer-hidden" style="display: none">Everything you see or hear in this talk is purely fictional and not connected to any real company I’ve ever come across.
+* ISO C++ committee member</section><section><div class="r-stack"><img src="dist/assets/raise_hands.png" style="height: 100vh;" /><img class="fragment" src="dist/assets/but_whyy.png" style="height: 100vh;" /><img class="fragment" src="dist/assets/why_bother.png" style="height: 100vh;" /><img class="fragment" src="dist/assets/errors.png" style="height: 100vh;" /><img class="fragment" src="dist/assets/less_errors.png" style="height: 100vh;" /><img class="fragment" src="dist/assets/red_pill_blue_pill.png" style="height: 100vh;" /></div></section><section id="book-slide"><div style="width: 90vw; height: 90vh; padding: 0 0 0 5vw;"><div id="flipbook-container"><div class="page-slide page-cover page-cover-top" data-density="hard"><div class="page-content"><h2>The Big Bad Template</h2></div></div><div class="page-slide"><div class="page-content"><h2 class="page-header">Disclaimer 😇</h2><div class="page-text"><h5 id="disclaimer"></h5></div><h6 id="disclaimer-hidden" style="display: none">Everything you see or hear in this talk is purely fictional and not connected to any real company I’ve ever come across.
 Also, the examples are for demonstration only ✨ (and yes… there may be much better design approaches 🙃).</h6></div></div><div class="page-slide"><div class="page-content"></div></div><div class="page-slide"><div class="page-content"><h2 class="page-header">Once upon a ⌚...</h2><div class="page-text"><h5>There was a little 🏢, and this 🏢 had an intelligent CTO who just hated templates <😈>.<br><br>
 
 There was always the assumption that 😈s are difficult to maintain and that it's much harder
@@ -153,7 +153,7 @@ auto i1 = 1l; // long
 auto i2 = 1Z; // size_t </script></code></pre></div><div class="fragment"><pre class="larger-font"><code class="hljs cpp" data-line-numbers="" data-trim=""><script type="text/template">auto t = "1"; // char[] 
 auto t1 = "1"s; // std::string
 auto t2 = "1"sv; // std::string_view </script></code></pre></div><aside class="notes">UDLs allow you to define your own literal suffixes to make code more readable and expressive.
-In C++ there are Built-in literal suffixes like l (long) and Z (size_t).</aside></section><section><h2>Adding UDL</h2><div><h3>The rule I'll ignore </h3><h4>Any UDL should start with a single underscore ('_'), otherwise it's reserved for the standard library implementors.</h4><img src="dist/assets/tom_and_jerry_catch_me_is_you_can.png" style="height: 40vh" /></div></section><section><h2>Adding UDL</h2><pre class="larger-font"><code class="hljs cpp" data-line-numbers="" data-trim=""><script type="text/template">auto operator""🛍🍎(unsigned long long n) {
+In C++ there are Built-in literal suffixes like l (long) and Z (size_t).</aside></section><section><h2>Adding UDL</h2><div><h3>The rule I'll ignore </h3><h4>Any UDL should start with a single underscore ('_'), otherwise it's reserved for the standard library implementors.</h4><img class="fragment" src="dist/assets/tom_and_jerry_catch_me_is_you_can.png" style="height: 40vh" /></div></section><section><h2>Adding UDL</h2><pre class="larger-font"><code class="hljs cpp" data-line-numbers="" data-trim=""><script type="text/template">auto operator""🛍🍎(unsigned long long n) {
     return Bag<Apple>(n);
 }
 
@@ -204,7 +204,7 @@ struct Cart {
 private:
     std::tuple<Bags...> m_bags;
     // Will be expanded to std::tuple<Bag<Apple>, Bag<Banana>, ...> m_bags;
-};</script></code></pre></section><section data-auto-animate=""><h2>Cart Implementation Time</h2><pre class="larger-font fragment" data-id="compile-time-cart-implemetation"><code class="hljs cpp" data-line-numbers="  3|4-6|8-13|15-17|19-22|24-34|25-31" data-trim=""><script type="text/template">template <typename... Bags> // Bag<Apple>, Bag<Banana>, etc...
+};</script></code></pre></section><section data-auto-animate=""><h2>Cart Implementation Time</h2><pre class="larger-font fragment" data-id="compile-time-cart-implemetation"><code class="hljs cpp" data-line-numbers="3|4-6|8-13|15-18|20-26|21|22|23|24|21-25|28-38|29-35|30|31|32-34|29,35|37" data-trim=""><script type="text/template">template <typename... Bags> // Bag<Apple>, Bag<Banana>, etc...
 struct Cart {
     constexpr Cart(Bags... bags) : m_bags{bags...} {}
     // Helper for operator+
@@ -218,13 +218,17 @@ struct Cart {
         );
     }
 
-    constexpr double TotalCost() const {
-        return (BagPrice(std::get<Bags>(m_bags)) + ... + 0.0);
-    }
-
     template <typename BagT>
     static constexpr double BagPrice(const BagT& bag) {
         return bag.size() * bag[0].price;
+    }
+
+    constexpr double TotalCost() const {
+        return ( // fold-expression
+            BagPrice(std::get<Bags>(m_bags)) // expression to expand
+            + ... // expanding
+            + 0.0 // initial value
+            );
     }
 
     void Receipt() const {
@@ -241,7 +245,21 @@ struct Cart {
 
 private:
     std::tuple<Bags...> m_bags;
-};</script></code></pre></section><section data-markdown=""># Questions Time!
+};</script></code></pre></section><section data-auto-animate=""><h2>Minor UDL modification</h2><pre class="larger-font fragment"><code class="hljs cpp" data-line-numbers="" data-trim=""><script type="text/template">template <char... Digits>
+static consteval int ParseAmount() {
+    int res = 0;
+    return ((res = res * 10 + (Digits - '0')), ...);
+}
+
+template <char... Digits>
+constexpr auto operator""🛍🍎() {
+    return Bag<🍎, ParseAmount<Digits...>()>{};
+}
+
+template <char... Digits>
+constexpr auto operator""🛍🍌() {
+    return Bag<🍌, ParseAmount<Digits...>()>{};
+}</script></code></pre></section><section data-markdown=""># Questions Time!
 ## Who's Afraid of the Big Bad Template?
 
 |                                          |   Coral Kashri, Solidus   |
