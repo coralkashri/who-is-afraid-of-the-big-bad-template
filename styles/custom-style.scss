@@ -16,3 +16,9 @@ h5 {
   justify-content: center;   /* horizontal */
   align-items: center;       /* vertical */
 }
+
+.white-text {
+  h1, h2, h3, h4, h5, h6 {
+    color: white
+  }
+}
