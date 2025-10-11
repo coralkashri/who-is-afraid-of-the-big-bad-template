@@ -599,7 +599,7 @@ html lang="en"
                 section data-auto-animate=""
                     h2 Minor UDL modification
                     pre.larger-font.fragment 
-                        code.hljs.cpp data-trim="" data-line-numbers=""
+                        code.hljs.cpp data-trim="" data-line-numbers="7-10|9|1-5"
                             script type="text/template"
                                 |
                                     template <char... Digits>
@@ -612,10 +612,25 @@ html lang="en"
                                     constexpr auto operator""🛍🍎() {
                                         return Bag<🍎, ParseAmount<Digits...>()>{};
                                     }
+                                    
+                                    // ...
 
-                                    template <char... Digits>
-                                    constexpr auto operator""🛍🍌() {
-                                        return Bag<🍌, ParseAmount<Digits...>()>{};
+                section
+                    h2 The Result
+                    pre.larger-font
+                        code.hljs.cpp data-trim="" data-line-numbers=""
+                            script type="text/template"
+                                |
+                                    int main() {
+                                        constexpr auto 🍎s = 7🛍🍎;
+                                        constexpr auto 🍌s = 10🛍🍌;
+                                        constexpr auto 🍌s2 = 5🛍🍌;
+
+                                        constexpr auto 🛒🐕 = 🍎s + 🍌s + 🍌s2;
+
+                                        static_assert(🛒🐕.TotalCost() == 7 * Apple::price + 15 * Banana::price);
+
+                                        🛒🐕.Receipt();
                                     }
 
                 section data-markdown=""

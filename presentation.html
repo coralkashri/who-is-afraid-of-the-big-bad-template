@@ -244,7 +244,7 @@ struct Cart {
 
 private:
     std::tuple<Bags...> m_bags;
-};</script></code></pre></section><section data-auto-animate=""><h2>Minor UDL modification</h2><pre class="larger-font fragment"><code class="hljs cpp" data-line-numbers="" data-trim=""><script type="text/template">template <char... Digits>
+};</script></code></pre></section><section data-auto-animate=""><h2>Minor UDL modification</h2><pre class="larger-font fragment"><code class="hljs cpp" data-line-numbers="7-10|9|1-5" data-trim=""><script type="text/template">template <char... Digits>
 static consteval int ParseAmount() {
     int res = 0;
     return ((res = res * 10 + (Digits - '0')), ...);
@@ -255,9 +255,16 @@ constexpr auto operator""🛍🍎() {
     return Bag<🍎, ParseAmount<Digits...>()>{};
 }
 
-template <char... Digits>
-constexpr auto operator""🛍🍌() {
-    return Bag<🍌, ParseAmount<Digits...>()>{};
+// ...</script></code></pre></section><section><h2>The Result</h2><pre class="larger-font"><code class="hljs cpp" data-line-numbers="" data-trim=""><script type="text/template">int main() {
+    constexpr auto 🍎s = 7🛍🍎;
+    constexpr auto 🍌s = 10🛍🍌;
+    constexpr auto 🍌s2 = 5🛍🍌;
+
+    constexpr auto 🛒🐕 = 🍎s + 🍌s + 🍌s2;
+
+    static_assert(🛒🐕.TotalCost() == 7 * Apple::price + 15 * Banana::price);
+
+    🛒🐕.Receipt();
 }</script></code></pre></section><section data-markdown=""># Questions Time!
 ## Who's Afraid of the Big Bad Template?
 
